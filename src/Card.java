@@ -20,7 +20,7 @@ public class Card extends JButton {
         return back;
     }
 
-    public void setMatch(boolean matched) {
+    public void setCardMatched(boolean matched) {
         cardMatched = matched;
     }
 
