@@ -1,6 +1,9 @@
 // this is the Card class for this memory game, can be changed as desired
 // can also include picture for game interfaces
 // this class can also be extended during development
+// demonstration how look like code and is not written by the groups' member. stackoverflow
+// it's should have a method to save and show the images on every row
+
 
 import javax.swing.*;
 
