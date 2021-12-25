@@ -28,12 +28,14 @@ public class functions {
         bPx.setLayout(new GridLayout(1,1));
 
         // For now, I've just added two different background colors to iP and wP. Later we can add our images to the iP, instead.
-        iPx.setBackground(Color.darkGray);
-        wPx.setBackground(Color.WHITE);
 
         File currentDirFile = new File("img\\"+addr);
         String currentDir =currentDirFile.getAbsolutePath();
+
         Icon icon = new ImageIcon(currentDir);
+        iPx.setBackground(Color.darkGray);
+        wPx.setBackground(Color.WHITE);
+
 
         JButton buttonx = new JButton(btName);
         buttonx.setIcon(icon);
