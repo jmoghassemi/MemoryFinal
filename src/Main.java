@@ -9,7 +9,7 @@ public class Main {
         // Creating a JFrame object, called "frame" that has the size 400 pixels by 400 pixels
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
+        frame.setSize(600, 600);
 
         // Creating a JPanel object (gP = Grid Panel) that has grid layout w/ 4 rows and 4 columns
         // This Grid Panel holds together 16 Container Panels, and is added to the JFrame at the very end of the program.

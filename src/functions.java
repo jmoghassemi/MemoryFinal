@@ -29,16 +29,13 @@ public class functions {
 
         // For now, I've just added two different background colors to iP and wP. Later we can add our images to the iP, instead.
 
-        File currentDirFile = new File("img\\"+addr);
-        String currentDir =currentDirFile.getAbsolutePath();
 
-        Icon icon = new ImageIcon(currentDir);
         iPx.setBackground(Color.darkGray);
         wPx.setBackground(Color.WHITE);
 
 
         JButton buttonx = new JButton(btName);
-        buttonx.setIcon(icon);
+
         bPx.add(buttonx);
 
         cPx.add(bPx, pos1);
@@ -49,10 +46,26 @@ public class functions {
         buttonx.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 cLObjx.show(cPx, pos2);
+                showCard(addr,buttonx,cLObjx,cPx,objPos);
+                System.out.println("Mouse click => "+btName+" , "+addr);
+            }
+
+            public static void showCard(String addr,JButton buttonx,CardLayout cLObjx,JPanel cPx,String objPos){
+                File currentDirFile = new File("img\\"+addr);
+                String currentDir =currentDirFile.getAbsolutePath();
+                Icon icon = new ImageIcon(currentDir);
+                buttonx.setIcon(icon);
+                cLObjx.show(cPx, objPos);
             }
         });
         return cPx;
+    }
+
+    public static boolean checkCardStatus(){
+
+        return false;
     }
 
     public static String[] cardShuffle(){
