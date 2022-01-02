@@ -1,12 +1,36 @@
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(BoardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(BoardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(BoardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(BoardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-        // Creating a JFrame object, called "frame" that has the size 400 pixels by 400 pixels
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new BoardView().setVisible(true);
+            }
+        });
+
+
+/*        // Creating a JFrame object, called "frame" that has the size 400 pixels by 400 pixels
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 600);
@@ -18,6 +42,7 @@ public class Main {
         gP.setLayout(new GridLayout(4, 4));
 
         String[] cardShuffle = functions.cardShuffle();
+
 
         gP.add(functions.drawCard("Button1","1.1","1.2","1.3","1.1", cardShuffle[0]));
         gP.add(functions.drawCard("Button2","2.1","2.2","2.3","2.1", cardShuffle[1]));
@@ -40,7 +65,7 @@ public class Main {
         gP.add(functions.drawCard("Button16","16.1","16.2","16.3","16.1", cardShuffle[15]));
 
         frame.add(gP);
-        frame.setVisible(true);
+        frame.setVisible(true);*/
 // ######################################################################################
 
     }

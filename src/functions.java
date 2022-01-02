@@ -64,7 +64,6 @@ public class functions {
     }
 
     public static boolean checkCardStatus(){
-
         return false;
     }
 
@@ -93,5 +92,4 @@ public class functions {
         }
         return cardShuffle;
     }
-
 }
