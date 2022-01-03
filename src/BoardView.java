@@ -1,11 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class BoardView extends JFrame {
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify
     private JPanel downPanel;
     private JButton exitButton;
     private JLabel lbl1;
@@ -31,9 +33,10 @@ public class BoardView extends JFrame {
     private JTextField player2Name;
     private JLabel player2Point;
     private JPanel rightPanel;
-    private Color[] cardShuffle = functions.cardShuffle();
-    // End of variables declaration         
-    
+    private Color[] cardShuffle;
+    private boolean firstClick, secondClick = false;
+    // End of variables declaration
+
     public BoardView() {
         initComponents();
     }
@@ -66,6 +69,7 @@ public class BoardView extends JFrame {
         downPanel = new JPanel();
         exitButton = new JButton();
         newButton = new JButton();
+        cardShuffle = functions.cardShuffle();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Memory Game - Java Project 3");
@@ -123,7 +127,6 @@ public class BoardView extends JFrame {
         rightPanel.setBackground(new Color(185, 190, 220));
         rightPanel.setPreferredSize(new Dimension(620, 470));
 
-        //lbl1.setText(cardShuffle[0]);
         lbl1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         lbl1.addMouseListener(new MouseAdapter() {
             @Override
@@ -149,22 +152,126 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 lbl3.setOpaque(true);
-                lbl3.setBackground(cardShuffle[1]);
+                lbl3.setBackground(cardShuffle[2]);
             }
         });
         lbl4.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl4.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl4.setOpaque(true);
+                lbl4.setBackground(cardShuffle[3]);
+            }
+        });
         lbl5.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl5.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl5.setOpaque(true);
+                lbl5.setBackground(cardShuffle[4]);
+            }
+        });
         lbl6.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl6.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl6.setOpaque(true);
+                lbl6.setBackground(cardShuffle[5]);
+            }
+        });
         lbl7.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl7.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl7.setOpaque(true);
+                lbl7.setBackground(cardShuffle[6]);
+            }
+        });
         lbl8.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl8.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl8.setOpaque(true);
+                lbl8.setBackground(cardShuffle[7]);
+            }
+        });
         lbl9.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl9.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl9.setOpaque(true);
+                lbl9.setBackground(cardShuffle[8]);
+            }
+        });
         lbl10.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl10.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl10.setOpaque(true);
+                lbl10.setBackground(cardShuffle[9]);
+            }
+        });
         lbl11.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl11.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl11.setOpaque(true);
+                lbl11.setBackground(cardShuffle[10]);
+            }
+        });
         lbl12.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl12.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl12.setOpaque(true);
+                lbl12.setBackground(cardShuffle[11]);
+            }
+        });
         lbl13.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl13.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl13.setOpaque(true);
+                lbl13.setBackground(cardShuffle[12]);
+            }
+        });
         lbl14.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl14.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl14.setOpaque(true);
+                lbl14.setBackground(cardShuffle[13]);
+            }
+        });
         lbl15.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl15.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl15.setOpaque(true);
+                lbl15.setBackground(cardShuffle[14]);
+            }
+        });
         lbl16.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl16.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl16.setOpaque(true);
+                lbl16.setBackground(cardShuffle[15]);
+            }
+        });
 
         GroupLayout rightPanelLayout = new GroupLayout(rightPanel);
         rightPanel.setLayout(rightPanelLayout);
@@ -238,8 +345,38 @@ public class BoardView extends JFrame {
         );
 
         exitButton.setText("Exit");
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
         newButton.setText("New");
+        newButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                player1Point.setText("0");
+                player2Point.setText("0");
+                lbl1.setOpaque(false);
+                lbl2.setOpaque(false);
+                lbl3.setOpaque(false);
+                lbl4.setOpaque(false);
+                lbl5.setOpaque(false);
+                lbl6.setOpaque(false);
+                lbl7.setOpaque(false);
+                lbl8.setOpaque(false);
+                lbl9.setOpaque(false);
+                lbl10.setOpaque(false);
+                lbl11.setOpaque(false);
+                lbl12.setOpaque(false);
+                lbl13.setOpaque(false);
+                lbl14.setOpaque(false);
+                lbl15.setOpaque(false);
+                lbl16.setOpaque(false);
+                initComponents();
+            }
+        });
 
         GroupLayout downPanelLayout = new GroupLayout(downPanel);
         downPanel.setLayout(downPanelLayout);
