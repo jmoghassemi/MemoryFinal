@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -67,29 +68,14 @@ public class functions {
         return false;
     }
 
-    public static String[] cardShuffle(){
-        List<Integer> imageTable = new ArrayList<Integer>(16);
-        String[] cardShuffle = new String[16];
-        for (int i = 0; i<8; i++) {
-            imageTable.add(i+1);
-            imageTable.add(i+31);
-        }
-        Collections.shuffle(imageTable);
+    public static Color[] cardShuffle(){
+        List<Color> cardColorList = Arrays.asList(Color.RED,Color.green,Color.BLUE,Color.ORANGE,Color.CYAN,Color.MAGENTA,Color.PINK,Color.YELLOW
+                ,Color.RED,Color.green,Color.BLUE,Color.ORANGE,Color.CYAN,Color.MAGENTA,Color.PINK,Color.YELLOW);
+        Collections.shuffle(cardColorList);
 
-        Object[] objects = imageTable.toArray();
-        int i;
-        int counter=0;
-        for (Object obj : objects){
-            i= (int) obj;
-            if (i > 9){
-                cardShuffle[counter]=(i-30)+".jpg";
-                System.out.println((i-30)+".jpg");
-            }else{
-                System.out.println(i+".jpg");
-                cardShuffle[counter]=(i)+".jpg";
-            }
-            counter++;
-        }
-        return cardShuffle;
+        Color[] ccl = new Color[cardColorList.size()];
+        ccl = cardColorList.toArray(ccl);
+
+        return ccl;
     }
 }

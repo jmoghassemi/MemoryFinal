@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class BoardView extends JFrame {
 
@@ -28,6 +31,7 @@ public class BoardView extends JFrame {
     private JTextField player2Name;
     private JLabel player2Point;
     private JPanel rightPanel;
+    private Color[] cardShuffle = functions.cardShuffle();
     // End of variables declaration         
     
     public BoardView() {
@@ -64,7 +68,7 @@ public class BoardView extends JFrame {
         newButton = new JButton();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Test Swing");
+        setTitle("Memory Game - Java Project 3");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setName("BoardView"); // NOI18N
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -116,25 +120,51 @@ public class BoardView extends JFrame {
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        rightPanel.setBackground(new java.awt.Color(185, 190, 220));
-        rightPanel.setPreferredSize(new java.awt.Dimension(620, 470));
+        rightPanel.setBackground(new Color(185, 190, 220));
+        rightPanel.setPreferredSize(new Dimension(620, 470));
 
-        lbl1.setText("lbl1");
-        lbl2.setText("lbl2");
-        lbl3.setText("lbl3");
-        lbl4.setText("lbl4");
-        lbl5.setText("lbl5");
-        lbl6.setText("lbl6");
-        lbl7.setText("lbl7");
-        lbl8.setText("lbl8");
-        lbl9.setText("lbl9");
-        lbl10.setText("lbl10");
-        lbl11.setText("lbl11");
-        lbl12.setText("lbl12");
-        lbl13.setText("lbl13");
-        lbl14.setText("lbl14");
-        lbl15.setText("lbl15");
-        lbl16.setText("lbl16");
+        //lbl1.setText(cardShuffle[0]);
+        lbl1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl1.setOpaque(true);
+                lbl1.setBackground(cardShuffle[0]);
+            }
+        });
+
+        lbl2.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl2.setOpaque(true);
+                lbl2.setBackground(cardShuffle[1]);
+            }
+        });
+        lbl3.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                lbl3.setOpaque(true);
+                lbl3.setBackground(cardShuffle[1]);
+            }
+        });
+        lbl4.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl5.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl6.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl7.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl8.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl9.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl10.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl11.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl12.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl13.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl14.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl15.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        lbl16.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
 
         GroupLayout rightPanelLayout = new GroupLayout(rightPanel);
         rightPanel.setLayout(rightPanelLayout);
