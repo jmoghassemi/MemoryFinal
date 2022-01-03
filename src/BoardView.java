@@ -34,13 +34,38 @@ public class BoardView extends JFrame {
     private JLabel player2Point;
     private JPanel rightPanel;
     private Color[] cardShuffle;
-    private boolean firstClick, secondClick = false;
+    private boolean firstClick, secondClick;
+    private int playerStatus;
     // End of variables declaration
 
     public BoardView() {
         initComponents();
     }
 
+    public void resetComponent(){
+        cardShuffle = functions.cardShuffle();
+        playerStatus = 1;
+        player1Point.setText("0");
+        player2Point.setText("0");
+        firstClick = false;
+        secondClick=false;
+        lbl1.setOpaque(false);
+        lbl2.setOpaque(false);
+        lbl3.setOpaque(false);
+        lbl4.setOpaque(false);
+        lbl5.setOpaque(false);
+        lbl6.setOpaque(false);
+        lbl7.setOpaque(false);
+        lbl8.setOpaque(false);
+        lbl9.setOpaque(false);
+        lbl10.setOpaque(false);
+        lbl11.setOpaque(false);
+        lbl12.setOpaque(false);
+        lbl13.setOpaque(false);
+        lbl14.setOpaque(false);
+        lbl15.setOpaque(false);
+        lbl16.setOpaque(false);
+    }
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
@@ -70,6 +95,7 @@ public class BoardView extends JFrame {
         exitButton = new JButton();
         newButton = new JButton();
         cardShuffle = functions.cardShuffle();
+        playerStatus = 1;
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Memory Game - Java Project 3");
@@ -81,21 +107,25 @@ public class BoardView extends JFrame {
 
         leftPanel.setName(""); // NOI18N
 
-        player1Name.setBackground(new java.awt.Color(95, 191, 175));
         player1Name.setHorizontalAlignment(JTextField.CENTER);
         player1Name.setText("Player 1");
 
-        player1Point.setBackground(new java.awt.Color(95, 191, 175));
         player1Point.setHorizontalAlignment(SwingConstants.CENTER);
         player1Point.setText("0");
 
-        player2Name.setBackground(new java.awt.Color(95, 191, 175));
         player2Name.setHorizontalAlignment(JTextField.CENTER);
         player2Name.setText("Player 2");
 
-        player2Point.setBackground(new java.awt.Color(95, 191, 175));
         player2Point.setHorizontalAlignment(SwingConstants.CENTER);
         player2Point.setText("0");
+
+        if(playerStatus == 1){
+            player1Name.setBackground(new java.awt.Color(95, 191, 175));
+            player1Point.setBackground(new java.awt.Color(95, 191, 175));
+        }else{
+            player2Name.setBackground(new java.awt.Color(95, 191, 175));
+            player2Point.setBackground(new java.awt.Color(95, 191, 175));
+        }
 
         GroupLayout leftPanelLayout = new GroupLayout(leftPanel);
         leftPanel.setLayout(leftPanelLayout);
@@ -132,6 +162,7 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+
                 lbl1.setOpaque(true);
                 lbl1.setBackground(cardShuffle[0]);
             }
@@ -356,24 +387,7 @@ public class BoardView extends JFrame {
         newButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                player1Point.setText("0");
-                player2Point.setText("0");
-                lbl1.setOpaque(false);
-                lbl2.setOpaque(false);
-                lbl3.setOpaque(false);
-                lbl4.setOpaque(false);
-                lbl5.setOpaque(false);
-                lbl6.setOpaque(false);
-                lbl7.setOpaque(false);
-                lbl8.setOpaque(false);
-                lbl9.setOpaque(false);
-                lbl10.setOpaque(false);
-                lbl11.setOpaque(false);
-                lbl12.setOpaque(false);
-                lbl13.setOpaque(false);
-                lbl14.setOpaque(false);
-                lbl15.setOpaque(false);
-                lbl16.setOpaque(false);
+                resetComponent();
                 initComponents();
             }
         });
