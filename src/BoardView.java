@@ -30,8 +30,9 @@ public class BoardView extends JFrame {
     private Color[] cardShuffle;
     private boolean firstClick, secondClick;
     private JLabel firstSelect, secondSelect;
-    private boolean[] cardStatus; // To keep cards status when select card and invisible.
+    private int cardStatus; // To keep cards status when select card and invisible.
     private int activePlayer; // to keep player keep
+    private int firstLabelNo,secondLabelNo;
     // End of variables declaration
 
     public BoardView() {
@@ -64,7 +65,7 @@ public class BoardView extends JFrame {
         activePlayer=1;
         firstSelect=null;
         secondSelect=null;
-        for (int i=0;i<16;i++){ cardStatus[i]=false;}
+        cardStatus=0;
     }
     private void initComponents() {
 
@@ -97,8 +98,7 @@ public class BoardView extends JFrame {
         cardShuffle = functions.cardShuffle();
         firstSelect=null;
         secondSelect=null;
-        cardStatus = new boolean[16];
-        for (int i=0;i<16;i++){ cardStatus[i]=false;}
+        cardStatus = 0;
         activePlayer=1;
 
 
@@ -502,18 +502,20 @@ public class BoardView extends JFrame {
     }
 
     private void checkStatus(JLabel lblx, int lblNo) {
-        //##############################################################
+        //System.out.println("Card Status =>" + cardStatus);
         if (checkCardStatus()) {
             if (!firstClick) {
                 firstClick = true;
                 firstSelect = lblx;
-                cardStatus[lblNo] = true;
+                firstLabelNo = lblNo;
+                cardStatus++;
                 msg.setText("First Select.");
             } else if ((!secondClick) && (firstSelect != lblx)) {
                 msg.setText("Second Select.");
                 secondClick = true;
                 secondSelect = lblx;
-                cardStatus[lblNo] = true;
+                secondLabelNo = lblNo;
+                cardStatus++;
                 if (checkEqual(firstSelect, secondSelect)) {
                     msg.setText("<html>You select a true color. <br> You got a point</html>");
                     firstSelect.setEnabled(false);
@@ -522,6 +524,8 @@ public class BoardView extends JFrame {
                     secondSelect = null;
                     firstClick = false;
                     secondClick = false;
+                    firstLabelNo = -1;
+                    secondLabelNo = -1;
                     if (activePlayer == 1) {
                         player1Point.setText(String.valueOf(Integer.parseInt(player1Point.getText()) + 1));
                     } else {
@@ -538,8 +542,7 @@ public class BoardView extends JFrame {
                     secondSelect = null;
                     firstClick = false;
                     secondClick = false;
-                    // Start BUG #############################
-                    cardStatus[lblNo] = false;
+                    cardStatus -= 2;
                     if (activePlayer == 1) {
                         activePlayer = 2;
                     } else {
@@ -552,6 +555,7 @@ public class BoardView extends JFrame {
             }
         }else{
             String message;
+            //System.out.println("#######################################################" + cardStatus);
             if (Integer.parseInt(player1Point.getText()) > Integer.parseInt(player2Point.getText())){
                 message = "Congratulation, " + player1Name.getText() + " win!";
             }else if(Integer.parseInt(player1Point.getText()) < Integer.parseInt(player2Point.getText())){
@@ -566,12 +570,7 @@ public class BoardView extends JFrame {
     }
 
     private boolean checkCardStatus() {
-        for (boolean crdst : cardStatus){
-            if (!crdst){
-                return true;
-            }
-        }
-        return false;
+        return cardStatus < 15;
     }
 
     private boolean checkEqual(JLabel firstSelect, JLabel secondSelect) {
