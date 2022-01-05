@@ -1,7 +1,5 @@
 // this is the Card class for this memory game, can be changed as desired
 // it's should have a method to save and show the images on every row
-
-
 import javax.swing.*;
 import java.awt.*;
 

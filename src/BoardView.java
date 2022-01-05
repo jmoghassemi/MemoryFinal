@@ -1,15 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class BoardView extends JFrame {
 
     // Variables declaration - do not modify
-    private JPanel downPanel;
-    private JButton exitButton;
     private JLabel lbl1;
     private JLabel lbl2;
     private JLabel lbl3;
@@ -26,19 +22,16 @@ public class BoardView extends JFrame {
     private JLabel lbl14;
     private JLabel lbl15;
     private JLabel lbl16;
-    private JLabel msg;
-    private JPanel leftPanel;
-    private JButton newButton;
+    private JLabel msg; // This variable using for show information on the screen.
     private JTextField player1Name;
     private JLabel player1Point;
     private JTextField player2Name;
     private JLabel player2Point;
-    private JPanel rightPanel;
     private Color[] cardShuffle;
     private boolean firstClick, secondClick;
     private JLabel firstSelect, secondSelect;
-    private boolean[] cardStatus;
-    private int activePlayer;
+    private boolean[] cardStatus; // To keep cards status when select card and invisible.
+    private int activePlayer; // to keep player keep
     // End of variables declaration
 
     public BoardView() {
@@ -75,12 +68,12 @@ public class BoardView extends JFrame {
     }
     private void initComponents() {
 
-        leftPanel = new JPanel();
+        JPanel leftPanel = new JPanel(); // This panel using for information part.
         player1Name = new JTextField();
         player1Point = new JLabel();
         player2Name = new JTextField();
         player2Point = new JLabel();
-        rightPanel = new JPanel();
+        JPanel rightPanel = new JPanel(); // This panel using for cards.
         lbl1 = new JLabel();
         lbl2 = new JLabel();
         lbl3 = new JLabel();
@@ -98,14 +91,15 @@ public class BoardView extends JFrame {
         lbl15 = new JLabel();
         lbl16 = new JLabel();
         msg = new JLabel();
-        downPanel = new JPanel();
-        exitButton = new JButton();
-        newButton = new JButton();
+        JPanel downPanel = new JPanel(); // This panel using for exit and new button.
+        JButton exitButton = new JButton();
+        JButton newButton = new JButton();
         cardShuffle = functions.cardShuffle();
         firstSelect=null;
         secondSelect=null;
         cardStatus = new boolean[16];
         for (int i=0;i<16;i++){ cardStatus[i]=false;}
+        activePlayer=1;
 
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -132,6 +126,8 @@ public class BoardView extends JFrame {
 
         msg.setHorizontalAlignment(SwingConstants.LEFT);
         msg.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        msg.setOpaque(true);
+        msg.setBackground(new Color(80, 125, 40));
         msg.setText("  Welcome!!!  ");
 
         playerStatus();
@@ -164,7 +160,7 @@ public class BoardView extends JFrame {
                                 .addComponent(player2Point, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(20, 20, 20)
-                                .addComponent(msg, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(msg, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         )
         );
@@ -512,16 +508,13 @@ public class BoardView extends JFrame {
                 firstClick = true;
                 firstSelect = lblx;
                 cardStatus[lblNo] = true;
-                //System.out.println("FirstClick # LableName =>" + lblNo);
                 msg.setText("First Select.");
             } else if ((!secondClick) && (firstSelect != lblx)) {
-                //System.out.println("SecondClick # labelName =>" + lblNo);
                 msg.setText("Second Select.");
                 secondClick = true;
                 secondSelect = lblx;
                 cardStatus[lblNo] = true;
                 if (checkEqual(firstSelect, secondSelect)) {
-                    //System.out.println("You selected a ### true ### color.");
                     msg.setText("<html>You select a true color. <br> You got a point</html>");
                     firstSelect.setEnabled(false);
                     secondSelect.setEnabled(false);
@@ -536,7 +529,6 @@ public class BoardView extends JFrame {
                     }
 
                 } else {
-                    //System.out.println("You selected a ### different ### color.");
                     msg.setText("<html>You select a wrong color. <br> You miss your turn. </html>");
                     firstSelect.setBackground(null);
                     secondSelect.setBackground(null);
@@ -546,17 +538,16 @@ public class BoardView extends JFrame {
                     secondSelect = null;
                     firstClick = false;
                     secondClick = false;
+                    // Start BUG #############################
                     cardStatus[lblNo] = false;
                     if (activePlayer == 1) {
                         activePlayer = 2;
-                        playerStatus();
                     } else {
                         activePlayer = 1;
-                        playerStatus();
                     }
+                    playerStatus();
                 }
             } else {
-                //System.out.println("Wrong select.");
                 msg.setText("<html>Wrong select!!! <br> try again.</html>");
             }
         }else{
