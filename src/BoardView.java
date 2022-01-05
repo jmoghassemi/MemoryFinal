@@ -568,15 +568,15 @@ public class BoardView extends JFrame {
             }else {
                 message = "The game ended in a draw.";
             }
-            msg.setText("<html>Congratulation, <br> Finish the Game. <br> "+message+" </html>");
+            msg.setText("<html>Finish the Game. <br> "+message+" </html>");
             JOptionPane.showMessageDialog(null, "Finish the Game \n" + message,
                     "Warning",JOptionPane.WARNING_MESSAGE);
         }
     }
 
     private boolean checkCardStatus() {
-        for (boolean i : cardStatus){
-            if (!i){
+        for (boolean crdst : cardStatus){
+            if (!crdst){
                 return true;
             }
         }
