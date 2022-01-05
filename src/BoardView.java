@@ -11,13 +11,6 @@ public class BoardView extends JFrame {
     private JPanel downPanel;
     private JButton exitButton;
     private JLabel lbl1;
-    private JLabel lbl10;
-    private JLabel lbl11;
-    private JLabel lbl12;
-    private JLabel lbl13;
-    private JLabel lbl14;
-    private JLabel lbl15;
-    private JLabel lbl16;
     private JLabel lbl2;
     private JLabel lbl3;
     private JLabel lbl4;
@@ -26,6 +19,14 @@ public class BoardView extends JFrame {
     private JLabel lbl7;
     private JLabel lbl8;
     private JLabel lbl9;
+    private JLabel lbl10;
+    private JLabel lbl11;
+    private JLabel lbl12;
+    private JLabel lbl13;
+    private JLabel lbl14;
+    private JLabel lbl15;
+    private JLabel lbl16;
+    private JLabel msg;
     private JPanel leftPanel;
     private JButton newButton;
     private JTextField player1Name;
@@ -35,7 +36,9 @@ public class BoardView extends JFrame {
     private JPanel rightPanel;
     private Color[] cardShuffle;
     private boolean firstClick, secondClick;
-    private int playerStatus;
+    private JLabel firstSelect, secondSelect;
+    private boolean[] cardStatus;
+    private int activePlayer;
     // End of variables declaration
 
     public BoardView() {
@@ -44,7 +47,6 @@ public class BoardView extends JFrame {
 
     public void resetComponent(){
         cardShuffle = functions.cardShuffle();
-        playerStatus = 1;
         player1Point.setText("0");
         player2Point.setText("0");
         firstClick = false;
@@ -65,8 +67,12 @@ public class BoardView extends JFrame {
         lbl14.setOpaque(false);
         lbl15.setOpaque(false);
         lbl16.setOpaque(false);
+        msg.setText("  Welcome!!!  ");
+        activePlayer=1;
+        firstSelect=null;
+        secondSelect=null;
+        for (int i=0;i<16;i++){ cardStatus[i]=false;}
     }
-    @SuppressWarnings("unchecked")
     private void initComponents() {
 
         leftPanel = new JPanel();
@@ -91,11 +97,16 @@ public class BoardView extends JFrame {
         lbl14 = new JLabel();
         lbl15 = new JLabel();
         lbl16 = new JLabel();
+        msg = new JLabel();
         downPanel = new JPanel();
         exitButton = new JButton();
         newButton = new JButton();
         cardShuffle = functions.cardShuffle();
-        playerStatus = 1;
+        firstSelect=null;
+        secondSelect=null;
+        cardStatus = new boolean[16];
+        for (int i=0;i<16;i++){ cardStatus[i]=false;}
+
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Memory Game - Java Project 3");
@@ -119,13 +130,11 @@ public class BoardView extends JFrame {
         player2Point.setHorizontalAlignment(SwingConstants.CENTER);
         player2Point.setText("0");
 
-        if(playerStatus == 1){
-            player1Name.setBackground(new java.awt.Color(95, 191, 175));
-            player1Point.setBackground(new java.awt.Color(95, 191, 175));
-        }else{
-            player2Name.setBackground(new java.awt.Color(95, 191, 175));
-            player2Point.setBackground(new java.awt.Color(95, 191, 175));
-        }
+        msg.setHorizontalAlignment(SwingConstants.LEFT);
+        msg.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        msg.setText("  Welcome!!!  ");
+
+        playerStatus();
 
         GroupLayout leftPanelLayout = new GroupLayout(leftPanel);
         leftPanel.setLayout(leftPanelLayout);
@@ -137,7 +146,9 @@ public class BoardView extends JFrame {
                                         .addComponent(player1Name)
                                         .addComponent(player1Point, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(player2Name, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-                                        .addComponent(player2Point, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(player2Point, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(msg, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                )
                                 .addContainerGap())
         );
         leftPanelLayout.setVerticalGroup(
@@ -147,11 +158,15 @@ public class BoardView extends JFrame {
                                 .addComponent(player1Name, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(player1Point, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addGap(177, 177, 177)
-                                .addComponent(player2Name, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                .addGap(70, 70, 70)
+                                .addComponent(player2Name, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(player2Point, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(20, 20, 20)
+                                .addComponent(msg, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        )
         );
 
         rightPanel.setBackground(new Color(185, 190, 220));
@@ -162,9 +177,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-
-                lbl1.setOpaque(true);
-                lbl1.setBackground(cardShuffle[0]);
+                if (lbl1.isEnabled()) {
+                    lbl1.setOpaque(true);
+                    lbl1.setBackground(cardShuffle[0]);
+                    checkStatus(lbl1, 0);
+                }
             }
         });
 
@@ -173,8 +190,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl2.setOpaque(true);
-                lbl2.setBackground(cardShuffle[1]);
+                if (lbl2.isEnabled()) {
+                    lbl2.setOpaque(true);
+                    lbl2.setBackground(cardShuffle[1]);
+                    checkStatus(lbl2, 1);
+                }
             }
         });
         lbl3.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -182,8 +202,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl3.setOpaque(true);
-                lbl3.setBackground(cardShuffle[2]);
+                if (lbl3.isEnabled()) {
+                    lbl3.setOpaque(true);
+                    lbl3.setBackground(cardShuffle[2]);
+                    checkStatus(lbl3, 2);
+                }
             }
         });
         lbl4.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -191,8 +214,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl4.setOpaque(true);
-                lbl4.setBackground(cardShuffle[3]);
+                if (lbl4.isEnabled()) {
+                    lbl4.setOpaque(true);
+                    lbl4.setBackground(cardShuffle[3]);
+                    checkStatus(lbl4, 3);
+                }
             }
         });
         lbl5.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -200,8 +226,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl5.setOpaque(true);
-                lbl5.setBackground(cardShuffle[4]);
+                if (lbl5.isEnabled()) {
+                    lbl5.setOpaque(true);
+                    lbl5.setBackground(cardShuffle[4]);
+                    checkStatus(lbl5, 4);
+                }
             }
         });
         lbl6.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -209,8 +238,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl6.setOpaque(true);
-                lbl6.setBackground(cardShuffle[5]);
+                if (lbl6.isEnabled()) {
+                    lbl6.setOpaque(true);
+                    lbl6.setBackground(cardShuffle[5]);
+                    checkStatus(lbl6, 5);
+                }
             }
         });
         lbl7.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -218,8 +250,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl7.setOpaque(true);
-                lbl7.setBackground(cardShuffle[6]);
+                if (lbl7.isEnabled()) {
+                    lbl7.setOpaque(true);
+                    lbl7.setBackground(cardShuffle[6]);
+                    checkStatus(lbl7, 6);
+                }
             }
         });
         lbl8.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -227,8 +262,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl8.setOpaque(true);
-                lbl8.setBackground(cardShuffle[7]);
+                if (lbl8.isEnabled()) {
+                    lbl8.setOpaque(true);
+                    lbl8.setBackground(cardShuffle[7]);
+                    checkStatus(lbl8, 7);
+                }
             }
         });
         lbl9.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -236,8 +274,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl9.setOpaque(true);
-                lbl9.setBackground(cardShuffle[8]);
+                if (lbl9.isEnabled()) {
+                    lbl9.setOpaque(true);
+                    lbl9.setBackground(cardShuffle[8]);
+                    checkStatus(lbl9, 8);
+                }
             }
         });
         lbl10.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -245,8 +286,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl10.setOpaque(true);
-                lbl10.setBackground(cardShuffle[9]);
+                if (lbl10.isEnabled()) {
+                    lbl10.setOpaque(true);
+                    lbl10.setBackground(cardShuffle[9]);
+                    checkStatus(lbl10, 9);
+                }
             }
         });
         lbl11.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -254,8 +298,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl11.setOpaque(true);
-                lbl11.setBackground(cardShuffle[10]);
+                if (lbl11.isEnabled()) {
+                    lbl11.setOpaque(true);
+                    lbl11.setBackground(cardShuffle[10]);
+                    checkStatus(lbl11, 10);
+                }
             }
         });
         lbl12.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -263,8 +310,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl12.setOpaque(true);
-                lbl12.setBackground(cardShuffle[11]);
+                if (lbl12.isEnabled()) {
+                    lbl12.setOpaque(true);
+                    lbl12.setBackground(cardShuffle[11]);
+                    checkStatus(lbl12, 11);
+                }
             }
         });
         lbl13.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -272,8 +322,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl13.setOpaque(true);
-                lbl13.setBackground(cardShuffle[12]);
+                if (lbl13.isEnabled()) {
+                    lbl13.setOpaque(true);
+                    lbl13.setBackground(cardShuffle[12]);
+                    checkStatus(lbl13, 12);
+                }
             }
         });
         lbl14.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -281,8 +334,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl14.setOpaque(true);
-                lbl14.setBackground(cardShuffle[13]);
+                if (lbl14.isEnabled()) {
+                    lbl14.setOpaque(true);
+                    lbl14.setBackground(cardShuffle[13]);
+                    checkStatus(lbl14, 13);
+                }
             }
         });
         lbl15.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -290,8 +346,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl15.setOpaque(true);
-                lbl15.setBackground(cardShuffle[14]);
+                if (lbl15.isEnabled()) {
+                    lbl15.setOpaque(true);
+                    lbl15.setBackground(cardShuffle[14]);
+                    checkStatus(lbl15, 14);
+                }
             }
         });
         lbl16.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -299,8 +358,11 @@ public class BoardView extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                lbl16.setOpaque(true);
-                lbl16.setBackground(cardShuffle[15]);
+                if (lbl16.isEnabled()) {
+                    lbl16.setOpaque(true);
+                    lbl16.setBackground(cardShuffle[15]);
+                    checkStatus(lbl16, 15);
+                }
             }
         });
 
@@ -376,20 +438,12 @@ public class BoardView extends JFrame {
         );
 
         exitButton.setText("Exit");
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        exitButton.addActionListener(e -> System.exit(0));
 
         newButton.setText("New");
-        newButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                resetComponent();
-                initComponents();
-            }
+        newButton.addActionListener(e -> {
+            resetComponent();
+            initComponents();
         });
 
         GroupLayout downPanelLayout = new GroupLayout(downPanel);
@@ -435,5 +489,102 @@ public class BoardView extends JFrame {
 
         pack();
     }
-    
+
+    private void playerStatus() {
+        if(activePlayer == 1){
+            player1Name.setBackground(new java.awt.Color(170, 40, 45));
+            player1Point.setBackground(new java.awt.Color(95, 191, 175));
+            player2Name.setBackground(new java.awt.Color(165, 170, 165));
+            player2Point.setBackground(new java.awt.Color(165, 170, 165));
+
+        }else{
+            player1Name.setBackground(new java.awt.Color(165, 170, 165));
+            player1Point.setBackground(new java.awt.Color(165, 170, 165));
+            player2Name.setBackground(new java.awt.Color(170, 40, 45));
+            player2Point.setBackground(new java.awt.Color(95, 191, 175));
+        }
+    }
+
+    private void checkStatus(JLabel lblx, int lblNo) {
+        //##############################################################
+        if (checkCardStatus()) {
+            if (!firstClick) {
+                firstClick = true;
+                firstSelect = lblx;
+                cardStatus[lblNo] = true;
+                //System.out.println("FirstClick # LableName =>" + lblNo);
+                msg.setText("First Select.");
+            } else if ((!secondClick) && (firstSelect != lblx)) {
+                //System.out.println("SecondClick # labelName =>" + lblNo);
+                msg.setText("Second Select.");
+                secondClick = true;
+                secondSelect = lblx;
+                cardStatus[lblNo] = true;
+                if (checkEqual(firstSelect, secondSelect)) {
+                    //System.out.println("You selected a ### true ### color.");
+                    msg.setText("<html>You select a true color. <br> You got a point</html>");
+                    firstSelect.setEnabled(false);
+                    secondSelect.setEnabled(false);
+                    firstSelect = null;
+                    secondSelect = null;
+                    firstClick = false;
+                    secondClick = false;
+                    if (activePlayer == 1) {
+                        player1Point.setText(String.valueOf(Integer.parseInt(player1Point.getText()) + 1));
+                    } else {
+                        player2Point.setText(String.valueOf(Integer.parseInt(player2Point.getText()) + 1));
+                    }
+
+                } else {
+                    //System.out.println("You selected a ### different ### color.");
+                    msg.setText("<html>You select a wrong color. <br> You miss your turn. </html>");
+                    firstSelect.setBackground(null);
+                    secondSelect.setBackground(null);
+                    firstSelect.setOpaque(false);
+                    secondSelect.setOpaque(false);
+                    firstSelect = null;
+                    secondSelect = null;
+                    firstClick = false;
+                    secondClick = false;
+                    cardStatus[lblNo] = false;
+                    if (activePlayer == 1) {
+                        activePlayer = 2;
+                        playerStatus();
+                    } else {
+                        activePlayer = 1;
+                        playerStatus();
+                    }
+                }
+            } else {
+                //System.out.println("Wrong select.");
+                msg.setText("<html>Wrong select!!! <br> try again.</html>");
+            }
+        }else{
+            String message;
+            if (Integer.parseInt(player1Point.getText()) > Integer.parseInt(player2Point.getText())){
+                message = "Congratulation, " + player1Name.getText() + " win!";
+            }else if(Integer.parseInt(player1Point.getText()) < Integer.parseInt(player2Point.getText())){
+                message = "Congratulation, " + player2Name.getText() + " win!";
+            }else {
+                message = "The game ended in a draw.";
+            }
+            msg.setText("<html>Congratulation, <br> Finish the Game. <br> "+message+" </html>");
+            JOptionPane.showMessageDialog(null, "Finish the Game \n" + message,
+                    "Warning",JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private boolean checkCardStatus() {
+        for (boolean i : cardStatus){
+            if (!i){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkEqual(JLabel firstSelect, JLabel secondSelect) {
+        return firstSelect.getBackground() == secondSelect.getBackground();
+    }
+
 }

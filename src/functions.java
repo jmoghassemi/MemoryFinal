@@ -9,7 +9,7 @@ import java.util.List;
 
 public class functions {
 
-    public static JPanel drawCard(String btName, String pos1, String pos2, String pos3, String objPos, String addr) throws IOException {
+    public static JPanel drawCard(String btName, String pos1, String pos2, String pos3, String objPos, String addr) {
         //cP = Container Panel
         //wP = White Panel (the lowest layer in stack/background panel)
         //iP = Image Panel (The panel which holds the card images, and it's placed on top of wP)
@@ -61,10 +61,6 @@ public class functions {
             }
         });
         return cPx;
-    }
-
-    public static boolean checkCardStatus(){
-        return false;
     }
 
     public static Color[] cardShuffle(){
