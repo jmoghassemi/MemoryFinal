@@ -3,8 +3,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import static java.lang.Thread.sleep;
-
 public class BoardView extends JFrame {
 
     // Variables declaration - do not modify
@@ -30,11 +28,10 @@ public class BoardView extends JFrame {
     private JTextField player2Name;
     private JLabel player2Point;
     private Color[] cardShuffle;
-    private boolean firstClick, secondClick;
-    private JLabel firstSelect, secondSelect;
+    private boolean firstClick, secondClick, thirdClick;
+    private JLabel firstSelect, secondSelect, thirdSelect;
     private int cardStatus; // To keep cards status when select card and invisible.
     private int activePlayer; // to keep player keep
-    private int firstLabelNo,secondLabelNo;
     // End of variables declaration
 
     public BoardView() {
@@ -47,6 +44,7 @@ public class BoardView extends JFrame {
         player2Point.setText("0");
         firstClick = false;
         secondClick=false;
+        thirdClick=false;
         lbl1.setOpaque(false);
         lbl2.setOpaque(false);
         lbl3.setOpaque(false);
@@ -67,6 +65,7 @@ public class BoardView extends JFrame {
         activePlayer=1;
         firstSelect=null;
         secondSelect=null;
+        thirdSelect=null;
         cardStatus=0;
     }
     private void initComponents() {
@@ -100,6 +99,7 @@ public class BoardView extends JFrame {
         cardShuffle = functions.cardShuffle();
         firstSelect=null;
         secondSelect=null;
+        thirdSelect=null;
         cardStatus = 0;
         activePlayer=1;
 
@@ -176,7 +176,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl1.isEnabled()) {
-                    checkStatus(lbl1, 0,cardShuffle[0]);
+                    checkStatus(lbl1, cardShuffle[0]);
                 }
             }
         });
@@ -187,7 +187,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl2.isEnabled()) {
-                    checkStatus(lbl2, 1,cardShuffle[1]);
+                    checkStatus(lbl2, cardShuffle[1]);
                 }
             }
         });
@@ -197,7 +197,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl3.isEnabled()) {
-                    checkStatus(lbl3, 2,cardShuffle[2]);
+                    checkStatus(lbl3, cardShuffle[2]);
                 }
             }
         });
@@ -207,7 +207,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl4.isEnabled()) {
-                    checkStatus(lbl4, 3,cardShuffle[3]);
+                    checkStatus(lbl4, cardShuffle[3]);
                 }
             }
         });
@@ -217,7 +217,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl5.isEnabled()) {
-                    checkStatus(lbl5, 4,cardShuffle[4]);
+                    checkStatus(lbl5, cardShuffle[4]);
                 }
             }
         });
@@ -227,7 +227,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl6.isEnabled()) {
-                    checkStatus(lbl6, 5,cardShuffle[5]);
+                    checkStatus(lbl6, cardShuffle[5]);
                 }
             }
         });
@@ -237,7 +237,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl7.isEnabled()) {
-                    checkStatus(lbl7, 6,cardShuffle[6]);
+                    checkStatus(lbl7, cardShuffle[6]);
                 }
             }
         });
@@ -247,7 +247,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl8.isEnabled()) {
-                    checkStatus(lbl8, 7,cardShuffle[7]);
+                    checkStatus(lbl8, cardShuffle[7]);
                 }
             }
         });
@@ -257,7 +257,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl9.isEnabled()) {
-                    checkStatus(lbl9, 8,cardShuffle[8]);
+                    checkStatus(lbl9, cardShuffle[8]);
                 }
             }
         });
@@ -267,7 +267,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl10.isEnabled()) {
-                    checkStatus(lbl10, 9,cardShuffle[9]);
+                    checkStatus(lbl10, cardShuffle[9]);
                 }
             }
         });
@@ -277,7 +277,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl11.isEnabled()) {
-                    checkStatus(lbl11, 10,cardShuffle[10]);
+                    checkStatus(lbl11, cardShuffle[10]);
                 }
             }
         });
@@ -287,7 +287,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl12.isEnabled()) {
-                    checkStatus(lbl12, 11,cardShuffle[11]);
+                    checkStatus(lbl12, cardShuffle[11]);
                 }
             }
         });
@@ -297,7 +297,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl13.isEnabled()) {
-                    checkStatus(lbl13, 12,cardShuffle[12]);
+                    checkStatus(lbl13, cardShuffle[12]);
                 }
             }
         });
@@ -307,7 +307,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl14.isEnabled()) {
-                    checkStatus(lbl14, 13,cardShuffle[13]);
+                    checkStatus(lbl14, cardShuffle[13]);
                 }
             }
         });
@@ -317,7 +317,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl15.isEnabled()) {
-                    checkStatus(lbl15, 14,cardShuffle[14]);
+                    checkStatus(lbl15, cardShuffle[14]);
                 }
             }
         });
@@ -327,7 +327,7 @@ public class BoardView extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (lbl16.isEnabled()) {
-                    checkStatus(lbl16, 15,cardShuffle[15]);
+                    checkStatus(lbl16, cardShuffle[15]);
                 }
             }
         });
@@ -471,67 +471,81 @@ public class BoardView extends JFrame {
         }
     }
 
-    private void checkStatus(JLabel lblx, int lblNo,Color c) {
-        //System.out.println("Card Status =>" + cardStatus);
+    private void showCard(JLabel lblx, Color c){
         lblx.setEnabled(true);
         lblx.setVisible(true);
         lblx.setOpaque(true);
         lblx.setBackground(c);
-        if (checkCardStatus()) {
-            if (!firstClick) {
-                firstClick = true;
+    }
+    private void hideCard(JLabel lblx){
+        lblx.setOpaque(false);
+        lblx.setBackground(null);
+    }
+    private void clickStatus(JLabel lblx){
+        if (!firstClick) {
+            firstClick = true;
+            firstSelect = lblx;
+            cardStatus++;
+            msg.setText("First Select.");
+        } else if ((!secondClick) && (firstSelect != lblx)) {
+            secondClick = true;
+            secondSelect = lblx;
+            cardStatus++;
+            msg.setText("Second Select.");
+        } else if ((!thirdClick) && (firstClick) &&(secondClick) && (firstSelect != lblx) && (secondSelect != lblx)){
+            thirdSelect=lblx;
+            boolean chklbl = checkEqual(firstSelect, secondSelect);
+            if (!chklbl) {
+                hideCard(firstSelect);
+                hideCard(secondSelect);
+                secondSelect = null;
+                thirdClick=false;
+                firstClick=true;
                 firstSelect = lblx;
-                firstLabelNo = lblNo;
                 cardStatus++;
-                msg.setText("First Select.");
-                System.out.println("First Click.");
-            } else if ((!secondClick) && (firstSelect != lblx)) {
-                msg.setText("Second Select.");
-                secondClick = true;
-                secondSelect = lblx;
-                secondLabelNo = lblNo;
+            }else{
                 cardStatus++;
-                System.out.println("Second Click.");
-                if (checkEqual(firstSelect, secondSelect)) {
-                    msg.setText("<html>You select a true color. <br> You got a point</html>");
-                    firstSelect.setEnabled(false);
-                    secondSelect.setEnabled(false);
-                    firstSelect = null;
-                    secondSelect = null;
-                    firstClick = false;
-                    secondClick = false;
-                    firstLabelNo = -1;
-                    secondLabelNo = -1;
-                    if (activePlayer == 1) {
-                        player1Point.setText(String.valueOf(Integer.parseInt(player1Point.getText()) + 1));
-                    } else {
-                        player2Point.setText(String.valueOf(Integer.parseInt(player2Point.getText()) + 1));
-                    }
-
-                } else {
-                    msg.setText("<html>You select a wrong color. <br> You miss your turn. </html>");
-                    firstSelect.setBackground(null);
-                    secondSelect.setBackground(null);
-                    firstSelect.setOpaque(false);
-                    secondSelect.setOpaque(false);
-                    firstSelect = null;
-                    secondSelect = null;
-                    firstClick = false;
-                    secondClick = false;
-                    cardStatus -= 2;
-                    if (activePlayer == 1) {
-                        activePlayer = 2;
-                    } else {
-                        activePlayer = 1;
-                    }
-                    playerStatus();
-                }
-            } else {
-                msg.setText("<html>Wrong select!!! <br> try again.</html>");
             }
-        }else{
+        }
+    }
+    private boolean checkEqual(JLabel fSelect, JLabel sSelect) {
+        if (fSelect.getBackground() == sSelect.getBackground()) {
+            fSelect.setEnabled(false);
+            sSelect.setEnabled(false);
+            firstSelect = thirdSelect;
+            secondSelect = null;
+            thirdSelect=null;
+            firstClick = true;
+            secondClick = false;
+            thirdClick = false;
+            if (activePlayer == 1) {
+                player1Point.setText(String.valueOf(Integer.parseInt(player1Point.getText()) + 1));
+            } else {
+                player2Point.setText(String.valueOf(Integer.parseInt(player2Point.getText()) + 1));
+            }
+            msg.setText("<html>You select a true color. <br> You got a point</html>");
+            return true;
+        } else {
+            firstClick = false;
+            secondClick = false;
+            thirdClick = false;
+            cardStatus -= 2;
+            if (activePlayer == 1) {
+                activePlayer = 2;
+            } else {
+                activePlayer = 1;
+            }
+            playerStatus();
+            msg.setText("<html>You select a wrong color. <br> You miss your turn. </html>");
+            return false;
+        }
+    }
+
+    private void checkStatus(JLabel lblx, Color c) {
+        showCard(lblx,c);
+        clickStatus(lblx);
+        if (cardStatus > 15) {
             String message;
-            //System.out.println("#######################################################" + cardStatus);
             if (Integer.parseInt(player1Point.getText()) > Integer.parseInt(player2Point.getText())){
                 message = "Congratulation, " + player1Name.getText() + " win!";
             }else if(Integer.parseInt(player1Point.getText()) < Integer.parseInt(player2Point.getText())){
@@ -540,17 +554,9 @@ public class BoardView extends JFrame {
                 message = "The game ended in a draw.";
             }
             msg.setText("<html>Finish the Game. <br> "+message+" </html>");
-            JOptionPane.showMessageDialog(null, "Finish the Game \n" + message,
-                    "Warning",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Finish the Game \n" + message, "Warning",JOptionPane.WARNING_MESSAGE);
+            resetComponent();
+            initComponents();
         }
     }
-
-    private boolean checkCardStatus() {
-        return cardStatus < 15;
-    }
-
-    private boolean checkEqual(JLabel firstSelect, JLabel secondSelect) {
-        return firstSelect.getBackground() == secondSelect.getBackground();
-    }
-
 }

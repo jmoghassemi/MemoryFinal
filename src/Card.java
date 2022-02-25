@@ -29,38 +29,22 @@ public class Card extends JButton {
     }
 
     public boolean isMatched() {
-        if (cardMatched == true){
-            return true;
-        }else {
-            return false;
-        }
+        return cardMatched;
     }
 
     public boolean isSelected() {
-        if (cardSelected == true){
-            return true;
-        }else {
-            return false;
-        }
+        return cardSelected;
     }
     public void setColor(Graphics g) {
         switch (temp) {
-            case 0: g.setColor(Color.RED);
-            break;
-            case 1: g.setColor(Color.GREEN);
-            break;
-            case 2: g.setColor(Color.BLUE);
-            break;
-            case 3: g.setColor(Color.ORANGE);
-            break;
-            case 4: g.setColor(Color.CYAN);
-            break;
-            case 5: g.setColor(Color.MAGENTA);
-            break;
-            case 6: g.setColor(Color.PINK);
-            break;
-            case 7: g.setColor(Color.YELLOW);
-            break;
+            case 0 -> g.setColor(new Color(143, 62, 62));
+            case 1 -> g.setColor(new Color(227, 212, 108));
+            case 2 -> g.setColor(new Color(123, 208, 105));
+            case 3 -> g.setColor(new Color(97, 175, 175));
+            case 4 -> g.setColor(new Color(238, 96, 22));
+            case 5 -> g.setColor(new Color(121, 48, 157));
+            case 6 -> g.setColor(new Color(215, 114, 151));
+            case 7 -> g.setColor(new Color(255, 0, 0));
         }
     }
 }
