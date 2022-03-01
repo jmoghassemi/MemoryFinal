@@ -492,7 +492,7 @@ public class BoardView extends JFrame {
             secondSelect = lblx;
             cardStatus++;
             msg.setText("Second Select.");
-        } else if ((!thirdClick) && (firstClick) &&(secondClick) && (firstSelect != lblx) && (secondSelect != lblx)){
+        } else if (!thirdClick && secondClick && firstSelect != lblx && secondSelect != lblx){
             thirdSelect=lblx;
             boolean chklbl = checkEqual(firstSelect, secondSelect);
             if (!chklbl) {
@@ -502,10 +502,8 @@ public class BoardView extends JFrame {
                 thirdClick=false;
                 firstClick=true;
                 firstSelect = lblx;
-                cardStatus++;
-            }else{
-                cardStatus++;
             }
+            cardStatus++;
         }
     }
     private boolean checkEqual(JLabel fSelect, JLabel sSelect) {
